@@ -1,5 +1,5 @@
-apiVersion: apps/v1
 kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: redis-deployment
   namespace: wanderlust
@@ -12,7 +12,7 @@ spec:
       app: redis
   template:
     metadata:
-      name: redis
+      name: redis-pod
       labels:
         app: redis
     spec:
@@ -28,11 +28,12 @@ spec:
         - name: mongo-storage
           persistentVolumeClaim:
             claimName: mongo-pvc
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: redis-svc
   namespace: wanderlust
 spec:
   selector:
@@ -41,3 +42,4 @@ spec:
     - port: 6379
       targetPort: 6379
       protocol: TCP
+
